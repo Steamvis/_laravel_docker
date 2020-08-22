@@ -37,6 +37,8 @@ services:
 
   mysql:
     image: mysql:5.7
+    volumes:
+      - ./docker/databases/mysql:/var/lib/mysql
     environment:
       - MYSQL_ROOT_USER=root
       - MYSQL_ROOT_PASSWORD=root
@@ -51,8 +53,8 @@ services:
   elasticsearch:
     build:
       context: ./docker/elasticsearch
-    #    volumes:
-    #      - ./docker/elasticsearch/data:/usr/share/elasticsearch/data
+    volumes:
+      - ./docker/databases/elastic:/usr/share/elasticsearch/data
     environment:
       - node.name=elasticsearch
       - cluster.name=es-docker-cluster
