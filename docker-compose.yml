@@ -1,0 +1,77 @@
+version: "3.3"
+
+services:
+  gateway:
+    container_name: gateway
+    build:
+      context: docker/gateway
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+      - frontend
+
+  ############################################
+  backend:
+    container_name: backend
+    build:
+      context: docker/backend/nginx
+    volumes:
+      - ./src/backend:/backend
+    depends_on:
+      - php-fpm
+      - php-cli
+
+  php-fpm:
+    container_name: backend-php-fpm
+    build:
+      context: docker/backend/php-fpm
+    volumes:
+      - ./src/backend:/backend
+
+  php-cli:
+    container_name: backend-php-cli
+    build:
+      context: docker/backend/php-cli
+    volumes:
+      - ./src/backend:/backend
+
+  #############################################
+
+  frontend:
+    container_name: frontend
+    build:
+      context: docker/frontend/nginx
+    volumes:
+      - ./src/frontend:/frontend
+    depends_on:
+      - node
+
+  node:
+    container_name: frontend-node
+    build:
+      context: docker/frontend/node
+    volumes:
+      - ./src/backend:/frontend
+#      - ./src/frontend:/frontend
+    tty: true
+  #############################################
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_USER=root
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=lcrm
+      - MYSQL_USER=default
+      - MYSQL_PASSWORD=default
+    ports:
+      - "8082:3306"
+

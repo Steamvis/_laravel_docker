@@ -6,10 +6,4 @@ RUN apt-get update \
     libpq-dev \
     && docker-php-ext-install pdo pdo_mysql
 
-
-# install redis
-RUN pecl install -o -f redis \
-    &&  rm -rf /tmp/pear \
-    &&  echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
-
 WORKDIR /app
