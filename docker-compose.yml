@@ -4,6 +4,8 @@ services:
   nginx:
     build:
       context: docker/nginx
+    volumes:
+      - ./src:/app    
     ports:
       - "80:80"
     networks:
