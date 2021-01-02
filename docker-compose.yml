@@ -42,7 +42,7 @@ services:
     environment:
       - MYSQL_ROOT_USER=root
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=lcrm
+      - MYSQL_DATABASE=laravel
       - MYSQL_USER=default
       - MYSQL_PASSWORD=default
     ports:
