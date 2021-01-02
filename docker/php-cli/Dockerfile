@@ -7,7 +7,6 @@ RUN apt-get update \
     && docker-php-ext-install pdo pdo_mysql
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/bin --filename=composer --quiet \
-    && composer global require hirak/prestissimo --no-plugins --no-scripts \
     && rm -rf /root/.composer/cache
 
 WORKDIR /app
