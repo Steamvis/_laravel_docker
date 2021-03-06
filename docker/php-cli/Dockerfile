@@ -6,6 +6,12 @@ RUN apt-get update \
     libpq-dev \
     && docker-php-ext-install pdo pdo_mysql
 
+RUN pecl install \
+    redis
+
+RUN docker-php-ext-enable \
+    redis
+
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/bin --filename=composer --quiet \
     && rm -rf /root/.composer/cache
 
