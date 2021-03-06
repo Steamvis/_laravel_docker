@@ -10,6 +10,12 @@ RUN apt-get update \
     libpng-dev \
     libzip-dev \
     && docker-php-ext-install pdo pdo_mysql;
+    
+RUN pecl install \
+    redis
+
+RUN docker-php-ext-enable \
+    redis
 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg; \
     	docker-php-ext-install -j "$(nproc)" \
