@@ -4,6 +4,7 @@ RUN apt-get update \
     && apt-get -y install wget \
     git \
     libpq-dev \
+    zip \
     && docker-php-ext-install pdo pdo_mysql
 
 RUN pecl install \
